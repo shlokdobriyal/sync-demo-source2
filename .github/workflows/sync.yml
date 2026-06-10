@@ -15,6 +15,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Mirror to destination repository
+      - name: Push to destination repository
+        env:
+          TOKEN: ${{ secrets.DESTINATION_TOKEN }}
         run: |
-          git push --mirror https://x-access-token:${{ secrets.DESTINATION_TOKEN }}@github.com/ishuD26/sync-demo-destination.git
+          git remote add mirror https://x-access-token:${TOKEN}@github.com/ishuD26/sync-demo-destination.git
+          git push --mirror mirror
